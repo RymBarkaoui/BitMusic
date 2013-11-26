@@ -23,45 +23,40 @@ import java.nio.file.Paths;
 
 /**
  *
- * @author Music Team
+ * @author Doha
  */
 public final class ApiMusicImpl implements ApiMusic {
 
     /**
      * Singleton implementation.
      */
-    
     private static final ApiMusicImpl APIMUSICIMPL = new ApiMusicImpl();
 
     /**
      * Private constructor for singleton pattern.
      */
-    
     private ApiMusicImpl() {
     }
 
     /**
-     * getInstance.
+     * .
      * @return Unique instance of ApiMusicImpl
      */
     public static ApiMusicImpl getInstance() {
-        
         return APIMUSICIMPL;
     }
 
     /*########################################################################*/
     /* IMPLEMENTED METHODS */
     /*########################################################################*/
-   
     /**
-     * Add a comment to a local song.
+     * add a comment to a local song
      *
      * @param songID
      * @param commentText
      * @return true to indicate to IHM that the song was local and it has to
      * update the song
      */
-    
     public boolean addCommentFromHmi(String songID, String commentText) {
 
         SongCommenter songCommenter;
@@ -78,15 +73,13 @@ public final class ApiMusicImpl implements ApiMusic {
 
     /**
      *
-     * add a comment to a distant song.
+     * add a comment to a distant song
      *
      * @param songID
      * @param commentText
      * @return false in order to send a comment request to the distant user
      */
-    
     public boolean addCommentFromNetwork(String songID, Comment commentText) {
-        
         SongCommenter songCommenter;
         SongLibrary localSongLibrary;
         boolean wasCommented = false;
@@ -98,35 +91,34 @@ public final class ApiMusicImpl implements ApiMusic {
         //besoin de récupérer la SongLibrary local - attente de Profile
         return wasCommented;
     }
+
+    ;
    
    /**
     * search a song by User 
+    * 
     * @param userID
     * @param searchId 
     */
-    
    public void searchSongsByUser(String userID, String searchId) {
         SongLibrary localSongLibrary;
         localSongLibrary = ApiProfileImpl.getApiProfile().getSongLibrary();
+
         SongSearcher songSearcher = new SongSearcher(localSongLibrary);
         songSearcher.searchSongsbyUser(userID, searchId);
     }
 
     /**
-     * Add a song to SongLibrary.
-     * @param path      song path
-     * @param title     song title
-     * @param album     song album
-     * @param tags      song tags
-     * @param rights    song rights
+     * Add a song to SongLibrary
+     *
+     * @param path song path
+     * @param title song title
+     * @param album song album
+     * @param tags song tags
+     * @param rights song rights
      */
-   
-    public void importSong(String path, String title, String artist, 
-          String album, LinkedList<String> tags, HashMap<String, Rights> rights)
-    {
-        
+    public void importSong(String path, String title, String artist, String album, LinkedList<String> tags, HashMap<String, Rights> rights) {
         SongLoader songLoader = new SongLoader();
-        
         try {
             songLoader.importSong(path, title, artist, album, tags);
         } catch (CopyMP3Exception | IOException excep) {
@@ -135,12 +127,11 @@ public final class ApiMusicImpl implements ApiMusic {
     }
 
     /**
-     * play a song from a distant user.
+     * play a song from a distant user
+     *
      * @param path song path
      */
-    
     public void playSongFromStart(String path) {
-        
         try {
             BitMusicPlayer.getInstance().play(path);
         } catch (IOException ioe) {
@@ -154,9 +145,7 @@ public final class ApiMusicImpl implements ApiMusic {
      * Start a song at a specific frame.
      * @param frameNumber The number of the frame.
      */
-    
     public void playSongFromSpecificFrame(int frameNumber) {
-        
         try {
             BitMusicPlayer.getInstance().play(frameNumber);
         } catch (IOException ioe) {
@@ -167,12 +156,9 @@ public final class ApiMusicImpl implements ApiMusic {
     }
     
     /**
-     * Stop a song. 
-     * The song can be resume until a new song is not requested.
+     * Stop a song. The song can be resume until a new song is not requested.
      */
-    
     public void pauseOrStopSong() {
-        
         try {
             BitMusicPlayer.getInstance().pause();
         } catch (Exception e) {
@@ -183,9 +169,7 @@ public final class ApiMusicImpl implements ApiMusic {
     /**
      * Resume a song which was stopped.
      */
-    
     public void resumeSong() {
-        
         try {
             BitMusicPlayer.getInstance().resume();
         }catch(IOException ioe){
@@ -197,12 +181,10 @@ public final class ApiMusicImpl implements ApiMusic {
     
     /**
      * Get the total number of frame of song. 
-     * The song must be played to have a result
-     * @return The total number of frame
+     * The song must be played to have a result.
+     * @return The total number of frame.
      */
-    
     public int getNumberOfFrame() {
-        
         return BitMusicPlayer.getInstance().getTotalFrame();
     }
     
@@ -210,45 +192,37 @@ public final class ApiMusicImpl implements ApiMusic {
      * Get the current frame which is played.
      * @return The frame played
      */
-    
     public int getCurrentFrame() {
-        
         return BitMusicPlayer.getInstance().getCurrentFrame();
     }
     
     /**
-     * Get the path of a local song identified by songId.
+     * Get the path of a local song identified by songId
      * @param songId songId
      * @return path path of the song
      */
-    
     public String getSongFile(String songId) {
-        
         SongLoader songLoader = new SongLoader();
-        
         return songLoader.getSongPath(songId);
     }
     
     /**
-     * Get the path of a temporary song identified by userId & songId.
+     * Get the path of a temporary song identified by userId & songId
      * @param userId userId
      * @param songId songId
      * @return path path of the song
      */
-    
     public String getTempSongFile(String userId, String songId){
         SongLoader songLoader = new SongLoader();
-        
         return songLoader.getTempSongPath(userId, songId);
     }
 
     /**
-     * Get the results of a search by tags.
-     * @param searchId  
+     * Get the
+     * @param searchId
      * @param tagList
-     * @return SongLibrary  a song library 
+     * @return
      */
-    
     @Override
     public SongLibrary searchSongsByTags(String searchId, List<String> tagList) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -266,11 +240,8 @@ public final class ApiMusicImpl implements ApiMusic {
      * Initialization of the current user's music folder.
      * @throws IOException 
      */
-    
     public void initMusicFolder(){
-        
         SongLoader songLoader = new SongLoader();
-        
         try {
             songLoader.createMusicFolders();
         } catch (IOException excep) {
