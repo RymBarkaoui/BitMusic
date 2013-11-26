@@ -9,7 +9,8 @@ import java.io.Serializable;
 
 /**
  *
- * @author Jean-Baptiste
+ * Grade class.
+ * @author Music Team
  */
 public class Grade implements Serializable{
     

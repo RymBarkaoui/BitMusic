@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * Class which allows to manage a song.
- * @author Elthum
+ * @author Music Team
  */
 public class Song implements Serializable{
     
@@ -72,16 +72,17 @@ public class Song implements Serializable{
         
     /**
      * Basic constructor of a Song.
-     * @param songId References the songId.
-     * @param title References the title.
-     * @param artist References the artist.
-     * @param album References the album.
-     * @param tags References the list of tag.
-     * @param rightsByCategory References a map of rightsByCategory.
+     * @param songId References the songId
+     * @param title References the title
+     * @param artist References the artist
+     * @param album References the album
+     * @param tags References the list of tag
+     * @param rightsByCategory References a map of rightsByCategory
      */
-    public Song(String songId, String title, String artist, String album, LinkedList<String> tags, HashMap<String,Rights> rightsByCategory) 
+    
+    public Song(String songId, String title, String artist, String album, 
+            LinkedList<String> tags, HashMap<String,Rights> rightsByCategory) 
     {
-       
         this.songId = songId;
         this.title = title;
         this.album = album;
@@ -91,8 +92,16 @@ public class Song implements Serializable{
         this.localRights = new Rights(true, true, true, true);
         
     }
-    
-     public Song(String songId, String title, String artist, String album, LinkedList<String> tags)
+    /**
+     * Constructor of a Song.
+     * @param songId References the songId
+     * @param title References the title
+     * @param artist References the artist
+     * @param album References the album
+     * @param tags References the list of tag
+     */
+     public Song(String songId, String title, String artist, String album, 
+             LinkedList<String> tags)
      {
         
         this.songId = songId;
@@ -104,25 +113,23 @@ public class Song implements Serializable{
         this.localRights = new Rights(true, true, true, true);
         
     }
-    
-    
-    
-    
-    
-    
+ 
     //##################################################################//
     //########################### METHODS ##############################//
     //##################################################################//
     
     /**
-     * Get a lightSong with the localSong attribute for the user with userId
+     * Get a lightSong with the localSong attribute for the user with userId.
      * @param authorId The authorId
-     * @return A light song with attribute modified for the autorId.
-     * @deprecated En théorie ne doit plus être utilise.
+     * @return A light song with attribute modified for the autorId
+     * @deprecated En théorie ne doit plus être utilise
      */
     public Song getLightSong(String userId) {
-        Song lightSong = new Song( songId, title, artist, album, tags, rightsByCategory);
-        ArrayList<String> categoryList = ApiProfileImpl.getApiProfile().getCategoriesNameByUserId(userId);
+        
+        Song lightSong = 
+                new Song( songId, title, artist, album, tags, rightsByCategory);
+        ArrayList<String> categoryList = 
+               ApiProfileImpl.getApiProfile().getCategoriesNameByUserId(userId);
         Rights localRights = new Rights(true, true, true, true);
         
         for (String categoryName :  categoryList) {
@@ -144,19 +151,23 @@ public class Song implements Serializable{
     
     /**
      * Add or replace a comment on a song.
-     * @param comment The comment to add.
+     * @param comment The comment to add
      */
     public void addComment(Comment comment) {
+        
         comments.add(comment);
     }
     
     /**
      * Delete a comment from a song.
-     * @param authorId The author of the song.
+     * @param authorId The author of the song
+     * @param date The date of the comment
      */
     public void deleteComment(String authorId, Date date) {
+        
         for (Comment comment : comments) {
-            if (comment.getAuthor().equals(authorId) && comment.getDate().equals(date)) {
+            if (comment.getAuthor().equals(authorId) &&
+                    comment.getDate().equals(date)) {
                 comments.remove(comment);
                 return;
             }
@@ -165,34 +176,38 @@ public class Song implements Serializable{
     
     /**
      * Add or replace a grade to the song.
-     * @param grade The grade to add or replace.
+     * @param grade The grade to add or replace
      */
     public void addGrade(Grade grade) {
+        
         grades.put(grade.getAuthorId(), grade);
     }
     
     /**
      * Delete a grade from a song.
-     * @param authorId The author of the grade.
+     * @param authorId The author of the grade
      */
     public void deleteGrade(String authorId) {
+        
         grades.remove(authorId);
     }
     
     /**
-     * Add or update the right of a category
-     * @param categoryName The category's name to update or add.
-     * @param rights The rights to associate to the category.
+     * Add or update the right of a category.
+     * @param categoryName The category's name to update or add
+     * @param rights The rights to associate to the category
      */
     public void updateCategory(String categoryName, Rights rights) { 
+        
         this.rightsByCategory.put(categoryName, rights);
     }
     
     /**
-     * Delete a category with its rights in a song?
-     * @param categoryName The category to delete.
+     * Delete a category with its rights in a song.
+     * @param categoryName The category to delete
      */
     public void deleteCategory(String categoryName) {
+        
         this.rightsByCategory.remove(categoryName);
     }
     
@@ -202,88 +217,107 @@ public class Song implements Serializable{
    
     /**
      * Getter of the attribute songId.
-     * @return The song id.
+     * @return The song id
      */
     public String getSongId() {
+        
         return songId;
     }
 
     /**
      * Getter of the attribute title.
-     * @return The title of the song.
+     * @return The title of the song
      */
     public String getTitle() {
+        
         return title;
     }
 
     /**
      * Setter of the attribute title.
-     * @param title The new title of the song.
+     * @param title The new title of the song
      */
     public void setTitle(String title) {
+        
         this.title = title;
     }
 
     /**
      * Getter of the attribute artist.
-     * @return the artist of the song.
+     * @return the artist of the song
      */
     public String getArtist() {
+        
         return artist;
     }
 
     /**
      * Getter of the attribute album.
-     * @return The album of the song.
+     * @return The album of the song
      */
     public String getAlbum() {
+        
         return album;
     }
 
     /**
      * Getter of the attribute tags.
-     * @return The list of tags.
+     * @return The list of tags
      */
     public LinkedList<String> getTags() {
+        
         return tags;
     }
 
 
     /**
      * Getter of the attribute comments.
-     * @return The list of comments.
+     * @return The list of comments
      */
     public LinkedList<Comment> getComments() {
+        
         return comments;
     }
 
     /**
      * Getter of the attribute grades.
-     * @return The list of grades.
+     * @return The list of grades
      */
     public HashMap<String,Grade> getGrades() {
+        
         return grades;
     }
 
     /**
      * Getter of the attribute ownerId.
-     * @return The owner id of the song.
+     * @return The owner id of the song
      */
     public String getOwnerId() {
+        
         return ownerId;
     }
 
     /**
-     * Getter of the attribute localRight
-     * @return The rights of the local user.
+     * Getter of the attribute localRight.
+     * @return The rights of the local user
      */
     public Rights getLocalRights() {
+        
         return localRights;
     }
-    
+    /**
+     * getter of the attribute rightsbycategory.
+     * @return the rights of a category
+     */
     public HashMap<String,Rights> getRightsByCategory() {
+        
         return rightsByCategory;
     }
+    /**
+     * function to know if there is a tag or not.
+     * @param tagList list of tags
+     * @return true if there is a tag, false if not
+     */
 
     public boolean hasTag(List<String> tagList){
         
@@ -291,9 +325,11 @@ public class Song implements Serializable{
         while(it.hasNext()){
             String currentTag = it.next();
             if(this.tags.contains((currentTag))){
+                
                 return true;
             }
         }
+        
         return false;
     }
 }

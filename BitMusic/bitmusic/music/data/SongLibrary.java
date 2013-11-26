@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.Serializable;
 
+/**
+ * Class which allows to manage a songlibrary.
+ * @author Music Team
+ */
 
 public class SongLibrary implements Serializable{
     
@@ -29,7 +33,6 @@ public class SongLibrary implements Serializable{
    
    /**
     * Returns the list of songs.
-    * 
     * @return library
     */
    public ArrayList<Song> getlibrary()
@@ -39,8 +42,7 @@ public class SongLibrary implements Serializable{
    
    /**
     * Set the list of songs.
-    * 
-    * @param lib 
+    * @param lib a library
     */
    public void setlibrary (ArrayList<Song> lib)
    {
@@ -49,13 +51,11 @@ public class SongLibrary implements Serializable{
    
    /**
     * Returns true if the song with the ID songID is in the list.
-    * 
-    * @param songId
-    * @return bool
+    * @param songId the songId of the song 
+    * @return true if song isLocal false if not
     */
     public boolean islocal(String songId)
-    {
-    
+    {   
     Iterator<Song> it = library.iterator();
     
     while (it.hasNext())
@@ -63,15 +63,14 @@ public class SongLibrary implements Serializable{
         Song s = it.next();
         if (s.getSongId().equals(songId))
             return true;
- 
         }  
     return false;
  } 
    
    /**
     * returns the songID of a song.
-    * @param songId
-    * @return 
+    * @param songId the songid of the song
+    * @return a song
     */
     public Song getSong(String songId)
     {
@@ -88,9 +87,9 @@ public class SongLibrary implements Serializable{
    
    /**
     * Removes the song songId.
-    * 
     * @param songId 
     */
+    
    public void removeSong (String songId)
    {
    Iterator<Song> it=library.iterator();
@@ -98,15 +97,15 @@ public class SongLibrary implements Serializable{
     {
        Song song=it.next();
        if(song.getSongId().equals(songId))
-       library.remove(song); //removes the song with the id songId from the library
+       library.remove(song); 
+            //removes the song with the id songId from the library
    
    }
    }
    
    /**
     * Adds song to the song list.
-    * 
-    * @param song 
+    * @param song the song we want to add
     */
    public void addSong(Song song)
    {       
@@ -114,11 +113,11 @@ public class SongLibrary implements Serializable{
    }
    
    /**
-    * Adds the category name to each song og the list song.
-    * 
-    * @param name
-    * @param rights 
+    * Adds the category name to each song og the list song. 
+    * @param name the name of the category
+    * @param rights the rights for this category
     */
+   
    public void addCategory (String name, Rights rights)
    {
    Iterator<Song> it = library.iterator();
@@ -131,8 +130,7 @@ public class SongLibrary implements Serializable{
    
    /**
     * Removes the category name to each song of the song list.
-    * 
-    * @param name 
+    * @param name the name of the category we want to remove
     */
    public void removeCategory (String name)
    {

@@ -10,7 +10,8 @@ import java.io.Serializable;
 
 /**
  *
- * @author Bruno
+ * Comment Class.
+ * @author Music Team 
  */
 public class Comment implements Serializable{
     
@@ -41,6 +42,7 @@ public class Comment implements Serializable{
      * @param comment   Comment given by user
      */
     public Comment(String author, String comment) {
+        
         this.authorId = author;
         this.commentText = comment;
         this.commentDate = new Date();
@@ -48,25 +50,28 @@ public class Comment implements Serializable{
 	
     /**
      * CommentText Getter.
-     * @return this commentText
+     * @return this commentText text of the comment
      */
     public String getComment() {
+        
         return this.commentText;
     }
 	
     /**
      * Author Getter.
-     * @return this authorId
+     * @return this authorId author of the comment
      */
     public String getAuthor() {
+        
         return this.authorId;
     }
 	
     /**
      * Date Getter.
-     * @return this commentDate
+     * @return this commentDate: date of the comment
      */
     public Date getDate() {
+        
         return this.commentDate;
     }
 }
